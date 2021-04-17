@@ -27,5 +27,24 @@ namespace CovidPortal.Data
                 }
             }
         }
+
+        public static async Task<AllCountriesModel> LoadDataForAllCountries()
+        {
+            ApiHelper.InitializeClient();
+            var url = new Uri(ApiHelper.ApiClient.BaseAddress + "all");
+            using (HttpResponseMessage response = await ApiHelper.ApiClient.GetAsync(url))
+            {
+                if (response.IsSuccessStatusCode)
+                {
+                    AllCountriesModel allData = await response.Content.ReadAsAsync<AllCountriesModel>();
+
+                    return allData;
+                }
+                else
+                {
+                    throw new Exception(response.ReasonPhrase);
+                }
+            }
+        }
     }
 }

@@ -42,3 +42,4 @@ F:\github\własne\CovidPortal\obj\Debug\net5.0\CovidPortal.dll
 F:\github\własne\CovidPortal\obj\Debug\net5.0\ref\CovidPortal.dll
 F:\github\własne\CovidPortal\obj\Debug\net5.0\CovidPortal.pdb
 F:\github\własne\CovidPortal\obj\Debug\net5.0\CovidPortal.genruntimeconfig.cache
+F:\github\własne\CovidPortal\obj\Debug\net5.0\Razor\Pages\AllCountry\Total.cshtml.g.cs

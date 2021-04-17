@@ -14,8 +14,8 @@ namespace CovidPortal.Pages.Country
         {
             Countries = CountriesData.CountriesDictionary;
         }
+        public Data.Models.CountryModel CountryData { get; set; }
         public Dictionary<string,string> Countries { get; set; }
-        public CountryModel CountryData { get; set; }
         public void OnGet()
         {
            
@@ -27,7 +27,7 @@ namespace CovidPortal.Pages.Country
             {
                 return Page();
             }
-            CountryData = (CountryModel) LoadData("PL").Result;
+            CountryData = LoadData("PL").Result;
 
             return Page();
         }

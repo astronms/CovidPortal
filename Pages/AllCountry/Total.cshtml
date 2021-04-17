@@ -1,0 +1,73 @@
+﻿@page
+@model CovidPortal.Pages.AllCountry.TotalModel
+@{
+}
+<h1>Data for all countries</h1>
+<table class="table table-striped">
+    <tbody>
+        <tr>
+            <th>cases</th>
+            <td>@Model.AllCountriesModel.cases</td>
+        </tr>
+        <tr>
+            <th>today cases </th>
+            <td>@Model.AllCountriesModel.todayCases</td>
+        </tr>
+        <tr>
+            <th>deaths</th>
+            <td>@Model.AllCountriesModel.deaths</td>
+        </tr>
+        <tr>
+            <th>today deaths</th>
+            <td>@Model.AllCountriesModel.todayDeaths</td>
+        </tr>
+        <tr>
+            <th>recovered</th>
+            <td>@Model.AllCountriesModel.recovered</td>
+        </tr>
+        <tr>
+            <th>today recovered</th>
+            <td>@Model.AllCountriesModel.todayRecovered</td>
+        </tr>
+        <tr>
+            <th>active cases</th>
+            <td>@Model.AllCountriesModel.active</td>
+        </tr>
+        <tr>
+            <th>critical cases</th>
+            <td>@Model.AllCountriesModel.critical</td>
+        </tr>
+        <tr>
+            <th>cases per one million</th>
+            <td>@Model.AllCountriesModel.casesPerOneMillion</td>
+        </tr>
+        <tr>
+            <th>deaths per one million</th>
+            <td>@Model.AllCountriesModel.deathsPerOneMillion</td>
+        </tr>
+        <tr>
+            <th>tests</th>
+            <td>@Model.AllCountriesModel.tests</td>
+        </tr>
+        <tr>
+            <th>tests per one million</th>
+            <td>@Model.AllCountriesModel.testsPerOneMillion</td>
+        </tr>
+        <tr>
+            <th>population</th>
+            <td>@Model.AllCountriesModel.population</td>
+        </tr>
+        <tr>
+            <th>active per one million</th>
+            <td>@Model.AllCountriesModel.activePerOneMillion</td>
+        </tr>
+        <tr>
+            <th>recovered per one million</th>
+            <td>@Model.AllCountriesModel.recoveredPerOneMillion</td>
+        </tr>
+        <tr>
+            <th>critical per one million</th>
+            <td>@Model.AllCountriesModel.criticalPerOneMillion</td>
+        </tr>
+    </tbody>
+</table>
