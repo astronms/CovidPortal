@@ -29,7 +29,6 @@ F:\github\własne\CovidPortal\obj\Debug\net5.0\CovidPortal.RazorCoreGenerate.cac
 F:\github\własne\CovidPortal\obj\Debug\net5.0\Razor\Pages\Country\Country.cshtml.g.cs
 F:\github\własne\CovidPortal\obj\Debug\net5.0\Razor\Pages\Error.cshtml.g.cs
 F:\github\własne\CovidPortal\obj\Debug\net5.0\Razor\Pages\Index.cshtml.g.cs
-F:\github\własne\CovidPortal\obj\Debug\net5.0\Razor\Pages\Privacy.cshtml.g.cs
 F:\github\własne\CovidPortal\obj\Debug\net5.0\Razor\Pages\Shared\_Layout.cshtml.g.cs
 F:\github\własne\CovidPortal\obj\Debug\net5.0\Razor\Pages\Shared\_ValidationScriptsPartial.cshtml.g.cs
 F:\github\własne\CovidPortal\obj\Debug\net5.0\Razor\Pages\_ViewImports.cshtml.g.cs
@@ -43,3 +42,4 @@ F:\github\własne\CovidPortal\obj\Debug\net5.0\ref\CovidPortal.dll
 F:\github\własne\CovidPortal\obj\Debug\net5.0\CovidPortal.pdb
 F:\github\własne\CovidPortal\obj\Debug\net5.0\CovidPortal.genruntimeconfig.cache
 F:\github\własne\CovidPortal\obj\Debug\net5.0\Razor\Pages\AllCountry\Total.cshtml.g.cs
+F:\github\własne\CovidPortal\obj\Debug\net5.0\Razor\Pages\Compare\Compare.cshtml.g.cs

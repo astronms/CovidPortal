@@ -6,7 +6,7 @@ using CovidPortal.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace CovidPortal.Pages.AllCountry
+namespace CovidPortal.Pages
 {
     public class TotalModel : PageModel
     {

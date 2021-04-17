@@ -6,32 +6,37 @@ using CovidPortal.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace CovidPortal.Pages
+namespace CovidPortal.Pages.Compare
 {
-    public class CountryModel : PageModel
+    public class CompareModel : PageModel
     {
-        public Data.Models.CountryModel CountryData { get; set; }
+        public Data.Models.CountryModel FirstCountry { get; set; }
+        public Data.Models.CountryModel SecoundCountry { get; set; }
+        [BindProperty]
+        public string SelectedFirstCountry { get; set; }
+        [BindProperty]
+        public string SelectedSecondCountry { get; set; }
         public Dictionary<string, string> Countries { get; set; }
         public string SelectedCountry { get; set; }
-        public CountryModel()
+        public CompareModel()
         {
             Countries = CountriesData.CountriesDictionary;
         }
 
         public void OnGet()
         {
-           
+
         }
 
-        public IActionResult OnPost(string selectedCountry)
+        public IActionResult OnPost()
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            SelectedCountry = selectedCountry;
-            CountryData = LoadData(SelectedCountry).Result;
+            FirstCountry = LoadData(SelectedFirstCountry).Result;
+            SecoundCountry= LoadData(SelectedSecondCountry).Result;
 
             return Page();
         }

@@ -1,0 +1,93 @@
+﻿@page "{SelectedFirstCountry?}"
+@model CovidPortal.Pages.Compare.CompareModel
+@{
+}
+<form method="post">
+    <div class="form-group">
+        <label for="exampleFormControlSelect1">Select country</label>
+        <select class="form-control" id="exampleFormControlSelect1" asp-for="SelectedFirstCountry">
+            @foreach (var value in Model.Countries.Values)
+            {
+                @if (value == Model.SelectedFirstCountry)
+                {
+                    <option selected>@value</option>
+                }
+                else
+                {
+                    <option>@value</option>
+                }
+
+            }
+        </select>
+        <label for="exampleFormControlSelect2">Select country</label>
+        <select class="form-control" id="exampleFormControlSelect2" asp-for="SelectedSecondCountry">
+            @foreach (var value in Model.Countries.Values)
+            {
+                @if (value == Model.SelectedSecondCountry)
+                {
+                    <option selected>@value</option>
+                }
+                else
+                {
+                    <option>@value</option>
+                }
+
+            }
+        </select>
+        <small id="CountryCodeHelp" class="form-text text-muted">Select the name of country</small>
+    </div>
+    <button type="submit" class="btn btn-primary">Show data</button>
+</form>
+@if (Model.FirstCountry != null)
+{
+    <h1>Compare @Model.FirstCountry.country <img src="@Model.FirstCountry.countryInfo.Flag" width="50" style="border: 1px solid black"> with @Model.SecoundCountry.country <img src="@Model.SecoundCountry.countryInfo.Flag" width="50" style="border: 1px solid black" /></h1>
+    <table class="table table-striped">
+        <tbody>
+            <tr>
+                <td>Country</td>
+                <td>Population</td>
+                <td>Cases</td>
+                <td>Cases per on million</td>
+                <td>Active cases</td>
+                <td>Active cases per one million</td>
+                <td>Critical cases</td>
+                <td>Critical cases per one million</td>
+                <td>Deaths</td>
+                <td>Deaths per one million</td>
+                <td>Recovered</td>
+                <td>Test</td>
+                <td>Test per one million</td>
+            </tr>
+        <tr>
+            <td>@Model.FirstCountry.country</td>
+            <td>@Model.FirstCountry.population</td>
+            <td>@Model.FirstCountry.cases</td>
+            <td>@Model.FirstCountry.casesPerOneMillion</td>
+            <td>@Model.FirstCountry.active</td>
+            <td>@Model.FirstCountry.activePerOneMillion</td>
+            <td>@Model.FirstCountry.critical</td>
+            <td>@Model.FirstCountry.criticalPerOneMillion</td>
+            <td>@Model.FirstCountry.deaths</td>
+            <td>@Model.FirstCountry.deathsPerOneMillion</td>
+            <td>@Model.FirstCountry.recovered</td>
+            <td>@Model.FirstCountry.tests</td>
+            <td>@Model.FirstCountry.testsPerOneMillion</td>
+        </tr>
+            <tr>
+                <td>@Model.SecoundCountry.country</td>
+                <td>@Model.SecoundCountry.population</td>
+                <td>@Model.SecoundCountry.cases</td>
+                <td>@Model.SecoundCountry.casesPerOneMillion</td>
+                <td>@Model.SecoundCountry.active</td>
+                <td>@Model.SecoundCountry.activePerOneMillion</td>
+                <td>@Model.SecoundCountry.critical</td>
+                <td>@Model.SecoundCountry.criticalPerOneMillion</td>
+                <td>@Model.SecoundCountry.deaths</td>
+                <td>@Model.SecoundCountry.deathsPerOneMillion</td>
+                <td>@Model.SecoundCountry.recovered</td>
+                <td>@Model.SecoundCountry.tests</td>
+                <td>@Model.SecoundCountry.testsPerOneMillion</td>
+            </tr>
+        </tbody>
+    </table>
+}
