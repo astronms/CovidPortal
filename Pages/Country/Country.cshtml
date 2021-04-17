@@ -28,36 +28,39 @@
     <h1>Data for @Model.CountryData.country <img src="@Model.CountryData.countryInfo.Flag" width="50" style="border:1px solid black"></h1>
     <table class="table table-striped">
         <tbody>
-            <tr>
-                <td>Country</td>
-                <td>Population</td>
-                <td>Cases</td>
-                <td>Cases per on million</td>
-                <td>Active cases</td>
-                <td>Active cases per one million</td>
-                <td>Critical cases</td>
-                <td>Critical cases per one million</td>
-                <td>Deaths</td>
-                <td>Deaths per one million</td>
-                <td>Recovered</td>
-                <td>Test</td>
-                <td>Test per one million</td>
-            </tr>
-            <tr>
-                <td>@Model.CountryData.country</td>
-                <td>@Model.CountryData.population</td>
-                <td>@Model.CountryData.cases</td>
-                <td>@Model.CountryData.casesPerOneMillion</td>
-                <td>@Model.CountryData.active</td>
-                <td>@Model.CountryData.activePerOneMillion</td>
-                <td>@Model.CountryData.critical</td>
-                <td>@Model.CountryData.criticalPerOneMillion</td>
-                <td>@Model.CountryData.deaths</td>
-                <td>@Model.CountryData.deathsPerOneMillion</td>
-                <td>@Model.CountryData.recovered</td>
-                <td>@Model.CountryData.tests</td>
-                <td>@Model.CountryData.testsPerOneMillion</td>
-            </tr>
+        <tr>
+            <td>Country</td>
+            <td>Population</td>
+            <td>Cases</td>
+            <td>Cases per on million</td>
+            <td>Active cases</td>
+            <td>Active cases per one million</td>
+            <td>Critical cases</td>
+            <td>Critical cases per one million</td>
+            <td>Deaths</td>
+            <td>Today deaths</td>
+            <td>Deaths per one million</td>
+            <td>Recovered</td>
+            <td>Test</td>
+            <td>Test per one million</td>
+        </tr>
+        <tr>
+            <td>@Model.CountryData.country</td>
+            <td>@Model.CountryData.population</td>
+            <td>@Model.CountryData.cases</td>
+            <td>@Model.CountryData.casesPerOneMillion</td>
+            <td>@Model.CountryData.active</td>
+            <td>@Model.CountryData.activePerOneMillion</td>
+            <td>@Model.CountryData.critical</td>
+            <td>@Model.CountryData.criticalPerOneMillion</td>
+            <td>@Model.CountryData.deaths</td>
+            <td>@Model.CountryData.todayDeaths</td>
+            <td>@Model.CountryData.deathsPerOneMillion</td>
+            <td>@Model.CountryData.recovered</td>
+            <td>@Model.CountryData.tests</td>
+            <td>@Model.CountryData.testsPerOneMillion</td>
+        </tr>
         </tbody>
     </table>
+    <p>Updated: @Model.CountryData.updated</p>
 }
