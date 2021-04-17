@@ -1,0 +1,27 @@
+﻿@page
+@model CovidPortal.Pages.Country.CountryModel
+@{
+}
+<form method="post">
+    <div class="form-group">
+        <label for="exampleFormControlSelect1">Select country</label>
+        <select class="form-control" id="exampleFormControlSelect1">
+            @foreach (var value in Model.Countries.Values)
+            {
+                <option>@value</option>
+            }
+        </select>
+        <small id="CountryCodeHelp" class="form-text text-muted">Select the name of country</small>
+    </div>
+    <button type="submit" class="btn btn-primary">Show data</button>
+</form>
+@if (Model.CountryData != null)
+{
+    <table class="table table-striped">
+        <tbody>
+        <tr>
+            <td>@Model.CountryData</td>
+        </tr>
+        </tbody>
+    </table>
+}
