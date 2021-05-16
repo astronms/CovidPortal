@@ -2,42 +2,68 @@
 @model CovidPortal.Pages.Compare.CompareModel
 @{
 }
-<form method="post">
-    <div class="form-group">
-        <label for="exampleFormControlSelect1">Select country</label>
-        <select class="form-control" id="exampleFormControlSelect1" asp-for="SelectedFirstCountry">
-            @foreach (var value in Model.Countries.Values)
-            {
-                @if (value == Model.SelectedFirstCountry)
+@if (Model.NumberOfCountries == 0 && Model.FirstCountry == null)
+{
+    <form method="post">
+        <div class="form-group">
+            <label for="exampleFormControlSelect1">Select the number of countries</label>
+            <select class="form-control" id="exampleFormControlSelect1" asp-for="NumberOfCountries">
+                <option selected>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
+                <option>10</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Send</button>
+    </form> }
+else
+{
+    <form method="post">
+        <div class="form-group">
+            <label for="exampleFormControlSelect1">Select country</label>
+            <select class="form-control" id="exampleFormControlSelect1" asp-for="SelectedFirstCountry">
+                @foreach (var value in Model.Countries.Values)
                 {
-                    <option selected>@value</option>
-                }
-                else
-                {
-                    <option>@value</option>
-                }
+                    @if (value == Model.SelectedFirstCountry)
+                    {
+                        <option selected>@value</option>
+                    }
+                    else
+                    {
+                        <option>@value</option>
+                    }
 
-            }
-        </select>
-        <label for="exampleFormControlSelect2">Select country</label>
-        <select class="form-control" id="exampleFormControlSelect2" asp-for="SelectedSecondCountry">
-            @foreach (var value in Model.Countries.Values)
+                }
+            </select>
+            @for (int i = 1; i < Model.NumberOfCountries; i++)
             {
-                @if (value == Model.SelectedSecondCountry)
-                {
-                    <option selected>@value</option>
-                }
-                else
-                {
-                    <option>@value</option>
-                }
+                <label for="exampleFormControlSelect2">Select country</label>
+                <select class="form-control" id="exampleFormControlSelect2" asp-for="SelectedSecondCountry">
+                    @foreach (var value in Model.Countries.Values)
+                    {
+                        @if (value == Model.SelectedSecondCountry)
+                        {
+                            <option selected>@value</option>
+                        }
+                        else
+                        {
+                            <option>@value</option>
+                        }
 
+                    }
+                </select>
             }
-        </select>
-        <small id="CountryCodeHelp" class="form-text text-muted">Select the name of country</small>
-    </div>
-    <button type="submit" class="btn btn-primary">Show data</button>
-</form>
+        </div>
+        <button type="submit" class="btn btn-primary">Show data</button>
+    </form>
+}
+
+
 @if (Model.FirstCountry != null)
 {
     <h2>Compare @Model.FirstCountry.country <img src="@Model.FirstCountry.countryInfo.Flag" width="50" style="border: 1px solid black"> with @Model.SecoundCountry.country <img src="@Model.SecoundCountry.countryInfo.Flag" width="50" style="border: 1px solid black" /></h2>
@@ -58,21 +84,21 @@
                 <td>Test</td>
                 <td>Test per one million</td>
             </tr>
-        <tr>
-            <td>@Model.FirstCountry.country</td>
-            <td>@Model.FirstCountry.population</td>
-            <td>@Model.FirstCountry.cases</td>
-            <td>@Model.FirstCountry.casesPerOneMillion</td>
-            <td>@Model.FirstCountry.active</td>
-            <td>@Model.FirstCountry.activePerOneMillion</td>
-            <td>@Model.FirstCountry.critical</td>
-            <td>@Model.FirstCountry.criticalPerOneMillion</td>
-            <td>@Model.FirstCountry.deaths</td>
-            <td>@Model.FirstCountry.deathsPerOneMillion</td>
-            <td>@Model.FirstCountry.recovered</td>
-            <td>@Model.FirstCountry.tests</td>
-            <td>@Model.FirstCountry.testsPerOneMillion</td>
-        </tr>
+            <tr>
+                <td>@Model.FirstCountry.country</td>
+                <td>@Model.FirstCountry.population</td>
+                <td>@Model.FirstCountry.cases</td>
+                <td>@Model.FirstCountry.casesPerOneMillion</td>
+                <td>@Model.FirstCountry.active</td>
+                <td>@Model.FirstCountry.activePerOneMillion</td>
+                <td>@Model.FirstCountry.critical</td>
+                <td>@Model.FirstCountry.criticalPerOneMillion</td>
+                <td>@Model.FirstCountry.deaths</td>
+                <td>@Model.FirstCountry.deathsPerOneMillion</td>
+                <td>@Model.FirstCountry.recovered</td>
+                <td>@Model.FirstCountry.tests</td>
+                <td>@Model.FirstCountry.testsPerOneMillion</td>
+            </tr>
             <tr>
                 <td>@Model.SecoundCountry.country</td>
                 <td>@Model.SecoundCountry.population</td>

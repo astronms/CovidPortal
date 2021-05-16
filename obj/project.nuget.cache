@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "AGkS2lLwlu4rmdxwMsGxjoXsrSCY3u/d2O8KrszuvXgzlHwCa80gW2NNHVEpFN80A+nUKQm8X3UCEag7wI9lUA==",
+  "dgSpecHash": "2F1lr5UUfrJpCh9C6LMgbHrC5WpRGEMknohHHG9ltCqpDWwq2U9qV2ogHOV9Uc/ZwvNjvYpceVsoZKSbE1/LSQ==",
   "success": true,
-  "projectFilePath": "F:\\github\\własne\\CovidPortal\\CovidPortal.csproj",
+  "projectFilePath": "F:\\github\\moje\\CovidPortal\\CovidPortal.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\astro\\.nuget\\packages\\chart.js\\2.9.3\\chart.js.2.9.3.nupkg.sha512",
+    "C:\\Users\\astro\\.nuget\\packages\\chartjscore\\1.5.8\\chartjscore.1.5.8.nupkg.sha512",
     "C:\\Users\\astro\\.nuget\\packages\\microsoft.aspnet.webapi.client\\5.2.7\\microsoft.aspnet.webapi.client.5.2.7.nupkg.sha512",
     "C:\\Users\\astro\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\astro\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",

@@ -2,73 +2,148 @@
 @model CovidPortal.Pages.TotalModel
 @{
 }
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ['Date', 'Cases', 'Recovered', 'Deaths'],
+            @for (int i = 0; i < Model.AllCountryHistoricalModel.cases.Count; i++)
+    {
+                @Html.Raw("['" + Model.AllCountryHistoricalModel.cases.Select(k => k.Key).ElementAt(i)+"',"+ Model.AllCountryHistoricalModel.cases.Select(k => k.Value).ElementAt(i)+
+                              ","+ Model.AllCountryHistoricalModel.recovered.Select(k => k.Value).ElementAt(i)+","+ Model.AllCountryHistoricalModel.deaths.Select(k => k.Value).ElementAt(i))
+
+        @if (i != Model.AllCountryHistoricalModel.cases.Count)
+                {
+                    @Html.Raw("],")
+                }
+                else
+                {
+                    @Html.Raw("]")
+                }
+    }
+        @Html.Raw("]);")
+
+        var options = {
+            title: 'Historical Data',
+            curveType: 'function',
+            legend: { position: 'bottom' },           
+            vAxis: {
+                viewWindow:
+                {
+                    min: 0
+                }
+            }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+        chart.draw(data, options);
+    }
+</script>
+
 <h1>Data for all countries</h1>
 <table class="table table-striped">
     <tbody>
-    <tr>
-        <th>cases</th>
-        <td>@Model.AllCountriesModel.cases</td>
-    </tr>
-    <tr>
-        <th>today cases </th>
-        <td>@Model.AllCountriesModel.todayCases</td>
-    </tr>
-    <tr>
-        <th>deaths</th>
-        <td>@Model.AllCountriesModel.deaths</td>
-    </tr>
-    <tr>
-        <th>today deaths</th>
-        <td>@Model.AllCountriesModel.todayDeaths</td>
-    </tr>
-    <tr>
-        <th>recovered</th>
-        <td>@Model.AllCountriesModel.recovered</td>
-    </tr>
-    <tr>
-        <th>today recovered</th>
-        <td>@Model.AllCountriesModel.todayRecovered</td>
-    </tr>
-    <tr>
-        <th>active cases</th>
-        <td>@Model.AllCountriesModel.active</td>
-    </tr>
-    <tr>
-        <th>critical cases</th>
-        <td>@Model.AllCountriesModel.critical</td>
-    </tr>
-    <tr>
-        <th>cases per one million</th>
-        <td>@Model.AllCountriesModel.casesPerOneMillion</td>
-    </tr>
-    <tr>
-        <th>deaths per one million</th>
-        <td>@Model.AllCountriesModel.deathsPerOneMillion</td>
-    </tr>
-    <tr>
-        <th>tests</th>
-        <td>@Model.AllCountriesModel.tests</td>
-    </tr>
-    <tr>
-        <th>tests per one million</th>
-        <td>@Model.AllCountriesModel.testsPerOneMillion</td>
-    </tr>
-    <tr>
-        <th>population</th>
-        <td>@Model.AllCountriesModel.population</td>
-    </tr>
-    <tr>
-        <th>active per one million</th>
-        <td>@Model.AllCountriesModel.activePerOneMillion</td>
-    </tr>
-    <tr>
-        <th>recovered per one million</th>
-        <td>@Model.AllCountriesModel.recoveredPerOneMillion</td>
-    </tr>
-    <tr>
-        <th>critical per one million</th>
-        <td>@Model.AllCountriesModel.criticalPerOneMillion</td>
-    </tr>
+        <tr>
+            <th>cases</th>
+            <td>@Model.AllCountriesModel.cases</td>
+        </tr>
+        <tr>
+            <th>today cases </th>
+            <td>@Model.AllCountriesModel.todayCases</td>
+        </tr>
+        <tr>
+            <th>deaths</th>
+            <td>@Model.AllCountriesModel.deaths</td>
+        </tr>
+        <tr>
+            <th>today deaths</th>
+            <td>@Model.AllCountriesModel.todayDeaths</td>
+        </tr>
+        <tr>
+            <th>recovered</th>
+            <td>@Model.AllCountriesModel.recovered</td>
+        </tr>
+        <tr>
+            <th>today recovered</th>
+            <td>@Model.AllCountriesModel.todayRecovered</td>
+        </tr>
+        <tr>
+            <th>active cases</th>
+            <td>@Model.AllCountriesModel.active</td>
+        </tr>
+        <tr>
+            <th>critical cases</th>
+            <td>@Model.AllCountriesModel.critical</td>
+        </tr>
+        <tr>
+            <th>cases per one million</th>
+            <td>@Model.AllCountriesModel.casesPerOneMillion</td>
+        </tr>
+        <tr>
+            <th>deaths per one million</th>
+            <td>@Model.AllCountriesModel.deathsPerOneMillion</td>
+        </tr>
+        <tr>
+            <th>tests</th>
+            <td>@Model.AllCountriesModel.tests</td>
+        </tr>
+        <tr>
+            <th>tests per one million</th>
+            <td>@Model.AllCountriesModel.testsPerOneMillion</td>
+        </tr>
+        <tr>
+            <th>population</th>
+            <td>@Model.AllCountriesModel.population</td>
+        </tr>
+        <tr>
+            <th>active per one million</th>
+            <td>@Model.AllCountriesModel.activePerOneMillion</td>
+        </tr>
+        <tr>
+            <th>recovered per one million</th>
+            <td>@Model.AllCountriesModel.recoveredPerOneMillion</td>
+        </tr>
+        <tr>
+            <th>critical per one million</th>
+            <td>@Model.AllCountriesModel.criticalPerOneMillion</td>
+        </tr>
     </tbody>
 </table>
+<br />
+<h2>Historical Data</h2>
+<table class="table table-striped">
+    <tbody>
+        <tr>
+            <th>Date</th>
+            <th>Cases</th>
+            <th>Recovered</th>
+            <th>Deaths</th>
+        </tr>
+
+        @for (int i = 0; i < Model.AllCountryHistoricalModel.cases.Count; i++)
+        {
+            <tr>
+                <td>
+                    @Model.AllCountryHistoricalModel.cases.Select(k => k.Key).ElementAt(i)
+                </td>
+                <td>
+                    @Model.AllCountryHistoricalModel.cases.Select(k => k.Value).ElementAt(i)
+                </td>
+                <td>
+                    @Model.AllCountryHistoricalModel.recovered.Select(k => k.Value).ElementAt(i)
+                </td>
+                <td>
+                    @Model.AllCountryHistoricalModel.deaths.Select(k => k.Value).ElementAt(i)
+                </td>
+            </tr>
+        }
+
+
+    </tbody>
+</table>
+<div class="w-100 p-3" id="curve_chart" style="height: 500px"></div>
 <p>Updated: @Model.AllCountriesModel.updated</p>

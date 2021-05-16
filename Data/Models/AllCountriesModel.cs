@@ -18,7 +18,7 @@ namespace CovidPortal.Data.Models
         public int critical { get; set; }
         public int casesPerOneMillion { get; set; }
         public float deathsPerOneMillion { get; set; }
-        public int tests { get; set; }
+        public long tests { get; set; }
         public float testsPerOneMillion { get; set; }
         public long population { get; set; }
         public int oneCasePerPeople { get; set; }

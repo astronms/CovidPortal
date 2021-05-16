@@ -1,6 +1,54 @@
 ﻿@page "{SelectedCountry?}"
+@using CovidPortal.Data.Models
+@using ChartJSCore.Models
 @model CovidPortal.Pages.CountryModel
 @{
+    Chart lineChart = (Chart)ViewData["LineChart"];
+}
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+@if (Model.CountryHistorical != null)
+{
+    <script type="text/javascript">
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Date', 'Cases', 'Recovered', 'Deaths'],
+
+                @for (int i = 0; i < Model.CountryHistorical.Timeline.cases.Count; i++)
+                {
+                    @Html.Raw("['" + Model.CountryHistorical.Timeline.cases.Select(k => k.Key).ElementAt(i) + "'," + Model.CountryHistorical.Timeline.cases.Select(k => k.Value).ElementAt(i) +
+                              "," + Model.CountryHistorical.Timeline.recovered.Select(k => k.Value).ElementAt(i) + "," + Model.CountryHistorical.Timeline.deaths.Select(k => k.Value).ElementAt(i))
+
+                    @if (i != Model.CountryHistorical.Timeline.cases.Count)
+                    {
+                        @Html.Raw("],")
+                    }
+                    else
+                    {
+                        @Html.Raw("]")
+                    }
+                }
+            @Html.Raw("]);")
+
+            var options = {
+                title: 'Historical Data',
+                curveType: 'function',
+                legend: { position: 'bottom' },
+                vAxis: {
+                    viewWindow:
+                    {
+                        min: 0
+                    }
+                }
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+            chart.draw(data, options);
+        }
+    </script>
 }
 <form method="post">
     <div class="form-group">
@@ -28,39 +76,73 @@
     <h1>Data for @Model.CountryData.country <img src="@Model.CountryData.countryInfo.Flag" width="50" style="border:1px solid black"></h1>
     <table class="table table-striped">
         <tbody>
-        <tr>
-            <td>Country</td>
-            <td>Population</td>
-            <td>Cases</td>
-            <td>Cases per on million</td>
-            <td>Active cases</td>
-            <td>Active cases per one million</td>
-            <td>Critical cases</td>
-            <td>Critical cases per one million</td>
-            <td>Deaths</td>
-            <td>Today deaths</td>
-            <td>Deaths per one million</td>
-            <td>Recovered</td>
-            <td>Test</td>
-            <td>Test per one million</td>
-        </tr>
-        <tr>
-            <td>@Model.CountryData.country</td>
-            <td>@Model.CountryData.population</td>
-            <td>@Model.CountryData.cases</td>
-            <td>@Model.CountryData.casesPerOneMillion</td>
-            <td>@Model.CountryData.active</td>
-            <td>@Model.CountryData.activePerOneMillion</td>
-            <td>@Model.CountryData.critical</td>
-            <td>@Model.CountryData.criticalPerOneMillion</td>
-            <td>@Model.CountryData.deaths</td>
-            <td>@Model.CountryData.todayDeaths</td>
-            <td>@Model.CountryData.deathsPerOneMillion</td>
-            <td>@Model.CountryData.recovered</td>
-            <td>@Model.CountryData.tests</td>
-            <td>@Model.CountryData.testsPerOneMillion</td>
-        </tr>
+            <tr>
+                <td>Country</td>
+                <td>Population</td>
+                <td>Cases</td>
+                <td>Cases per on million</td>
+                <td>Active cases</td>
+                <td>Active cases per one million</td>
+                <td>Critical cases</td>
+                <td>Critical cases per one million</td>
+                <td>Deaths</td>
+                <td>Today deaths</td>
+                <td>Deaths per one million</td>
+                <td>Recovered</td>
+                <td>Test</td>
+                <td>Test per one million</td>
+            </tr>
+            <tr>
+                <td>@Model.CountryData.country</td>
+                <td>@Model.CountryData.population</td>
+                <td>@Model.CountryData.cases</td>
+                <td>@Model.CountryData.casesPerOneMillion</td>
+                <td>@Model.CountryData.active</td>
+                <td>@Model.CountryData.activePerOneMillion</td>
+                <td>@Model.CountryData.critical</td>
+                <td>@Model.CountryData.criticalPerOneMillion</td>
+                <td>@Model.CountryData.deaths</td>
+                <td>@Model.CountryData.todayDeaths</td>
+                <td>@Model.CountryData.deathsPerOneMillion</td>
+                <td>@Model.CountryData.recovered</td>
+                <td>@Model.CountryData.tests</td>
+                <td>@Model.CountryData.testsPerOneMillion</td>
+            </tr>
         </tbody>
     </table>
+    <br />
+    <h2>Historical Data</h2>
+    <table class="table table-striped">
+        <tbody>
+            <tr>
+                <th>Date</th>
+                <th>Cases</th>
+                <th>Recovered</th>
+                <th>Deaths</th>
+            </tr>
+
+            @for (int i = 0; i < Model.CountryHistorical.Timeline.cases.Count; i++)
+            {
+                <tr>
+                    <td>
+                        @Model.CountryHistorical.Timeline.cases.Select(k => k.Key).ElementAt(i)
+                    </td>
+                    <td>
+                        @Model.CountryHistorical.Timeline.cases.Select(k => k.Value).ElementAt(i)
+                    </td>
+                    <td>
+                        @Model.CountryHistorical.Timeline.recovered.Select(k => k.Value).ElementAt(i)
+                    </td>
+                    <td>
+                        @Model.CountryHistorical.Timeline.deaths.Select(k => k.Value).ElementAt(i)
+                    </td>
+                </tr>
+            }
+
+
+        </tbody>
+    </table>
+    <div class="w-100 p-3" id="curve_chart" style="width: 100%; height: 500px"></div>
+
     <p>Updated: @Model.CountryData.updated</p>
 }

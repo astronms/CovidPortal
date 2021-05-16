@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using CovidPortal.Data.Models;
+using Newtonsoft.Json;
 
 namespace CovidPortal.Data
 {
@@ -21,10 +20,8 @@ namespace CovidPortal.Data
 
                     return country;
                 }
-                else
-                {
-                    throw new Exception(response.ReasonPhrase);
-                }
+
+                throw new Exception(response.ReasonPhrase);
             }
         }
 
@@ -40,8 +37,53 @@ namespace CovidPortal.Data
 
                     return allData;
                 }
-                else
+
+                throw new Exception(response.ReasonPhrase);
+            }
+        }
+
+
+        public static async Task<CountryHistoricalModel> LoadHistoricalDataForCountry(string country)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                string requestUri = "https://disease.sh/v3/covid-19/historical/" + country + "?lastdays=all";
+
+                using (HttpResponseMessage response = await client.GetAsync(requestUri))
                 {
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string jsonResponse = await response.Content.ReadAsStringAsync();
+
+                        CountryHistoricalModel countryHistorical =
+                            JsonConvert.DeserializeObject<CountryHistoricalModel>(jsonResponse);
+
+                        return countryHistorical;
+                    }
+
+                    throw new Exception(response.ReasonPhrase);
+                }
+            }
+        }
+
+        public static async Task<AllCountryHistoricalModel> LoadHistoricalDataForAllCountry()
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                string requestUri = "https://disease.sh/v3/covid-19/historical/"+ "all?lastdays=all";
+
+                using (HttpResponseMessage response = await client.GetAsync(requestUri))
+                {
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string jsonResponse = await response.Content.ReadAsStringAsync();
+
+                        AllCountryHistoricalModel allCountryHistorical =
+                            JsonConvert.DeserializeObject<AllCountryHistoricalModel>(jsonResponse);
+
+                        return allCountryHistorical;
+                    }
+
                     throw new Exception(response.ReasonPhrase);
                 }
             }
