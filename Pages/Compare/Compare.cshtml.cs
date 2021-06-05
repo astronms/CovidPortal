@@ -14,7 +14,9 @@ namespace CovidPortal.Pages.Compare
         }
         public List<Data.Models.CountryModel> CountriesResult { get; set; }
         public Data.Models.CountryModel FirstCountry { get; set; }
+        public Data.Models.CountryHistoricalModel FirstCountryHistorical { get; set; }
         public Data.Models.CountryModel SecoundCountry { get; set; }
+        public Data.Models.CountryHistoricalModel SecoundCountryHistorical { get; set; }
         [BindProperty] public int NumberOfCountries { get; set; }
 
         [BindProperty] public List<string> SelectedCountry { get; set; }
@@ -33,7 +35,9 @@ namespace CovidPortal.Pages.Compare
             if (SelectedFirstCountry != null)
             {
                 FirstCountry = LoadData(SelectedFirstCountry).Result;
+                FirstCountryHistorical = LoadHistoricalData(SelectedFirstCountry).Result;
                 SecoundCountry = LoadData(SelectedSecondCountry).Result;
+                SecoundCountryHistorical = LoadHistoricalData(SelectedSecondCountry).Result;
             }
 
 
@@ -44,6 +48,10 @@ namespace CovidPortal.Pages.Compare
         private async Task<Data.Models.CountryModel> LoadData(string countryCode)
         {
             return await DataProcessor.LoadDataForCountry(countryCode);
+        }
+        private async Task<Data.Models.CountryHistoricalModel> LoadHistoricalData(string countryCode)
+        {
+            return await DataProcessor.LoadHistoricalDataForCountry(countryCode);
         }
     }
 }

@@ -1,6 +1,135 @@
 ﻿@page "{SelectedFirstCountry?}"
+@using ChartJSCore.Models
 @model CovidPortal.Pages.Compare.CompareModel
 @{
+    Chart lineChart = (Chart)ViewData["LineChart"];
+}
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+@if (Model.FirstCountryHistorical != null)
+{
+    <script type="text/javascript">
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart1);
+
+        function drawChart1() {
+            var data = google.visualization.arrayToDataTable([
+                ['Date', '@Model.SelectedFirstCountry' , '@Model.SelectedSecondCountry' ],
+
+                @for (int i = 0; i < Model.FirstCountryHistorical.Timeline.cases.Count; i++)
+                {
+                    @Html.Raw("['" + Model.FirstCountryHistorical.Timeline.cases.Select(k => k.Key).ElementAt(i) + "'," + Model.FirstCountryHistorical.Timeline.cases.Select(k => k.Value).ElementAt(i) +
+                              "," + Model.SecoundCountryHistorical.Timeline.recovered.Select(k => k.Value).ElementAt(i))
+
+                    @if (i != Model.FirstCountryHistorical.Timeline.cases.Count)
+                    {
+                        @Html.Raw("],")
+                    }
+                    else
+                    {
+                        @Html.Raw("]")
+                    }
+                }
+            @Html.Raw("]);")
+
+            var options = {
+                title: 'Cases',
+                curveType: 'function',
+                legend: { position: 'bottom' },
+                vAxis: {
+                    viewWindow:
+                    {
+                        min: 0
+                    }
+                }
+            };
+
+            var chart1 = new google.visualization.LineChart(document.getElementById('cases_chart'));
+
+            chart1.draw(data, options);
+        }
+    </script>
+    <script type="text/javascript">
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart2);
+
+        function drawChart2() {
+            var data = google.visualization.arrayToDataTable([
+                ['Date', '@Model.SelectedFirstCountry' , '@Model.SelectedSecondCountry' ],
+
+                @for (int i = 0; i < Model.FirstCountryHistorical.Timeline.cases.Count; i++)
+                {
+                    @Html.Raw("['" + Model.FirstCountryHistorical.Timeline.cases.Select(k => k.Key).ElementAt(i) + "'," + Model.FirstCountryHistorical.Timeline.deaths.Select(k => k.Value).ElementAt(i) +
+                              "," + Model.SecoundCountryHistorical.Timeline.deaths.Select(k => k.Value).ElementAt(i))
+
+                    @if (i != Model.FirstCountryHistorical.Timeline.cases.Count)
+                    {
+                        @Html.Raw("],")
+                    }
+                    else
+                    {
+                        @Html.Raw("]")
+                    }
+                }
+            @Html.Raw("]);")
+
+            var options = {
+                title: 'Deaths',
+                curveType: 'function',
+                legend: { position: 'bottom' },
+                vAxis: {
+                    viewWindow:
+                    {
+                        min: 0
+                    }
+                }
+            };
+
+            var chart2 = new google.visualization.LineChart(document.getElementById('deaths_chart'));
+
+            chart2.draw(data, options);
+        }
+    </script>
+    <script type="text/javascript">
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart3);
+
+        function drawChart3() {
+            var data = google.visualization.arrayToDataTable([
+                ['Date', '@Model.SelectedFirstCountry' , '@Model.SelectedSecondCountry' ],
+
+                @for (int i = 0; i < Model.FirstCountryHistorical.Timeline.cases.Count; i++)
+                {
+                    @Html.Raw("['" + Model.FirstCountryHistorical.Timeline.cases.Select(k => k.Key).ElementAt(i) + "'," + Model.FirstCountryHistorical.Timeline.recovered.Select(k => k.Value).ElementAt(i) +
+                              "," + Model.SecoundCountryHistorical.Timeline.recovered.Select(k => k.Value).ElementAt(i))
+
+                    @if (i != Model.FirstCountryHistorical.Timeline.cases.Count)
+                    {
+                        @Html.Raw("],")
+                    }
+                    else
+                    {
+                        @Html.Raw("]")
+                    }
+                }
+            @Html.Raw("]);")
+
+            var options = {
+                title: 'Recovered',
+                curveType: 'function',
+                legend: { position: 'bottom' },
+                vAxis: {
+                    viewWindow:
+                    {
+                        min: 0
+                    }
+                }
+            };
+
+            var chart3 = new google.visualization.LineChart(document.getElementById('deaths_chart'));
+
+            chart3.draw(data, options);
+        }
+    </script>
 }
 @if (Model.NumberOfCountries == 0 && Model.FirstCountry == null)
 {
@@ -87,33 +216,189 @@ else
             <tr>
                 <td>@Model.FirstCountry.country</td>
                 <td>@Model.FirstCountry.population</td>
-                <td>@Model.FirstCountry.cases</td>
-                <td>@Model.FirstCountry.casesPerOneMillion</td>
-                <td>@Model.FirstCountry.active</td>
-                <td>@Model.FirstCountry.activePerOneMillion</td>
-                <td>@Model.FirstCountry.critical</td>
-                <td>@Model.FirstCountry.criticalPerOneMillion</td>
-                <td>@Model.FirstCountry.deaths</td>
-                <td>@Model.FirstCountry.deathsPerOneMillion</td>
-                <td>@Model.FirstCountry.recovered</td>
-                <td>@Model.FirstCountry.tests</td>
-                <td>@Model.FirstCountry.testsPerOneMillion</td>
+                @if (@Model.FirstCountry.cases > Model.SecoundCountry.cases)
+                {
+                    <td style="background-color:red">@Model.FirstCountry.cases</td>
+                }
+                else
+                {
+                    <td style="background-color:green">@Model.FirstCountry.cases</td>
+                }
+                @if (@Model.FirstCountry.casesPerOneMillion > Model.SecoundCountry.casesPerOneMillion)
+                {
+                    <td style="background-color:red">@Model.FirstCountry.casesPerOneMillion</td>
+                }
+                else
+                {
+                    <td style="background-color:green">@Model.FirstCountry.casesPerOneMillion</td>
+                }
+                @if (@Model.FirstCountry.active > Model.SecoundCountry.active)
+                {
+                    <td style="background-color:red">@Model.FirstCountry.active</td>
+                }
+                else
+                {
+                    <td style="background-color:green">@Model.FirstCountry.active</td>
+                }
+                @if (@Model.FirstCountry.activePerOneMillion > Model.SecoundCountry.activePerOneMillion)
+                {
+                    <td style="background-color:red">@Model.FirstCountry.activePerOneMillion</td>
+                }
+                else
+                {
+                    <td style="background-color:green">@Model.FirstCountry.activePerOneMillion</td>
+                }
+                @if (@Model.FirstCountry.critical > Model.SecoundCountry.critical)
+                {
+                    <td style="background-color:red">@Model.FirstCountry.critical</td>
+                }
+                else
+                {
+                    <td style="background-color:green">@Model.FirstCountry.critical</td>
+                }
+                @if (@Model.FirstCountry.criticalPerOneMillion > Model.SecoundCountry.criticalPerOneMillion)
+                {
+                    <td style="background-color:red">@Model.FirstCountry.criticalPerOneMillion</td>
+                }
+                else
+                {
+                    <td style="background-color:green">@Model.FirstCountry.criticalPerOneMillion</td>
+                }
+                @if (@Model.FirstCountry.deaths > Model.SecoundCountry.deaths)
+                {
+                    <td style="background-color:red">@Model.FirstCountry.deaths</td>
+                }
+                else
+                {
+                    <td style="background-color:green">@Model.FirstCountry.deaths</td>
+                }
+                @if (@Model.FirstCountry.deathsPerOneMillion > Model.SecoundCountry.deathsPerOneMillion)
+                {
+                    <td style="background-color:red">@Model.FirstCountry.deathsPerOneMillion</td>
+                }
+                else
+                {
+                    <td style="background-color:green">@Model.FirstCountry.deathsPerOneMillion</td>
+                }
+                @if (@Model.FirstCountry.recovered > Model.SecoundCountry.recovered)
+                {
+                    <td style="background-color:red">@Model.FirstCountry.recovered</td>
+                }
+                else
+                {
+                    <td style="background-color:green">@Model.FirstCountry.recovered</td>
+                }
+                @if (@Model.FirstCountry.tests > Model.SecoundCountry.tests)
+                {
+                    <td style="background-color:red">@Model.FirstCountry.tests</td>
+                }
+                else
+                {
+                    <td style="background-color:green">@Model.FirstCountry.tests</td>
+                }
+                @if (@Model.FirstCountry.testsPerOneMillion > Model.SecoundCountry.testsPerOneMillion)
+                {
+                    <td style="background-color:red">@Model.FirstCountry.testsPerOneMillion</td>
+                }
+                else
+                {
+                    <td style="background-color:green">@Model.FirstCountry.testsPerOneMillion</td>
+                }
             </tr>
             <tr>
                 <td>@Model.SecoundCountry.country</td>
                 <td>@Model.SecoundCountry.population</td>
-                <td>@Model.SecoundCountry.cases</td>
-                <td>@Model.SecoundCountry.casesPerOneMillion</td>
-                <td>@Model.SecoundCountry.active</td>
-                <td>@Model.SecoundCountry.activePerOneMillion</td>
-                <td>@Model.SecoundCountry.critical</td>
-                <td>@Model.SecoundCountry.criticalPerOneMillion</td>
-                <td>@Model.SecoundCountry.deaths</td>
-                <td>@Model.SecoundCountry.deathsPerOneMillion</td>
-                <td>@Model.SecoundCountry.recovered</td>
-                <td>@Model.SecoundCountry.tests</td>
-                <td>@Model.SecoundCountry.testsPerOneMillion</td>
+                @if (@Model.FirstCountry.cases < Model.SecoundCountry.cases)
+                {
+                    <td style="background-color:red">@Model.SecoundCountry.cases</td>
+                }
+                else
+                {
+                    <td style="background-color:green">@Model.SecoundCountry.cases</td>
+                }
+                @if (@Model.FirstCountry.casesPerOneMillion < Model.SecoundCountry.casesPerOneMillion)
+                {
+                    <td style="background-color:red">@Model.SecoundCountry.casesPerOneMillion</td>
+                }
+                else
+                {
+                    <td style="background-color:green">@Model.SecoundCountry.casesPerOneMillion</td>
+                }
+                @if (@Model.FirstCountry.active < Model.SecoundCountry.active)
+                {
+                    <td style="background-color:red">@Model.SecoundCountry.active</td>
+                }
+                else
+                {
+                    <td style="background-color:green">@Model.SecoundCountry.active</td>
+                }
+                @if (@Model.FirstCountry.activePerOneMillion < Model.SecoundCountry.activePerOneMillion)
+                {
+                    <td style="background-color:red">@Model.SecoundCountry.activePerOneMillion</td>
+                }
+                else
+                {
+                    <td style="background-color:green">@Model.SecoundCountry.activePerOneMillion</td>
+                }
+                @if (@Model.FirstCountry.critical < Model.SecoundCountry.critical)
+                {
+                    <td style="background-color:red">@Model.SecoundCountry.critical</td>
+                }
+                else
+                {
+                    <td style="background-color:green">@Model.SecoundCountry.critical</td>
+                }
+                @if (@Model.FirstCountry.criticalPerOneMillion < Model.SecoundCountry.criticalPerOneMillion)
+                {
+                    <td style="background-color:red">@Model.SecoundCountry.criticalPerOneMillion</td>
+                }
+                else
+                {
+                    <td style="background-color:green">@Model.SecoundCountry.criticalPerOneMillion</td>
+                }
+                @if (@Model.FirstCountry.deaths < Model.SecoundCountry.deaths)
+                {
+                    <td style="background-color:red">@Model.SecoundCountry.deaths</td>
+                }
+                else
+                {
+                    <td style="background-color:green">@Model.SecoundCountry.deaths</td>
+                }
+                @if (@Model.FirstCountry.deathsPerOneMillion < Model.SecoundCountry.deathsPerOneMillion)
+                {
+                    <td style="background-color:red">@Model.SecoundCountry.deathsPerOneMillion</td>
+                }
+                else
+                {
+                    <td style="background-color:green">@Model.SecoundCountry.deathsPerOneMillion</td>
+                }
+                @if (@Model.FirstCountry.recovered < Model.SecoundCountry.recovered)
+                {
+                    <td style="background-color:red">@Model.SecoundCountry.recovered</td>
+                }
+                else
+                {
+                    <td style="background-color:green">@Model.SecoundCountry.recovered</td>
+                }
+                @if (@Model.FirstCountry.tests < Model.SecoundCountry.tests)
+                {
+                    <td style="background-color:red">@Model.SecoundCountry.tests</td>
+                }
+                else
+                {
+                    <td style="background-color:green">@Model.SecoundCountry.tests</td>
+                }
+                @if (@Model.FirstCountry.testsPerOneMillion < Model.SecoundCountry.testsPerOneMillion)
+                {
+                    <td style="background-color:red">@Model.SecoundCountry.testsPerOneMillion</td>
+                }
+                else
+                {
+                    <td style="background-color:green">@Model.SecoundCountry.testsPerOneMillion</td>
+                }
             </tr>
         </tbody>
     </table>
+    <div class="w-100 p-3" id="cases_chart" style="width: 100%; height: 500px"></div>
+    <div class="w-100 p-3" id="deaths_chart" style="width: 100%; height: 500px"></div>
 }
